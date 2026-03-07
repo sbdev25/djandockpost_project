@@ -26,5 +26,23 @@ def addUser(request):
         serializer.save()
     return Response(serializer.data)
 
-   
+@api_view(['PUT'])
+def updateUser(request , pk):
+    user = User.objects.get(id = pk)
+    
+    serializer = UserSerializer(user ,data=request.data)
+    if serializer.is_valid(): 
+        serializer.save()
+    return Response(serializer.data)
+
+@api_view(['DELETE'])
+def deleteUser(request , pk ):
+
+    user = User.objects.get(id=pk)
+    
+    user.delete()
+
+    return Response('Item successfuly deleted !')
+
+
 
